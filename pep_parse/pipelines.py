@@ -19,9 +19,7 @@ class PepParsePipeline:
         path = BASE_DIR / f'results/status_summary_{time}.csv'
 
         with open(path, mode='w', encoding='utf-8') as csvfile:
-            writer = csv.writer(csvfile)
+            writer = csv.writer(csvfile, dialect='unix')
             writer.writerow(['Статус', 'Количество'])
+            self.status_count['Total'] = sum(self.status_count.values())
             writer.writerows(self.status_count.items())
-
-            total = sum(self.status_count.values())
-            writer.writerow(['Total', total])
