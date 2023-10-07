@@ -10,7 +10,9 @@ class PepSpider(scrapy.Spider):
 
     def parse(self, response):
         pep_table = response.css('section#numerical-index')
-        pep_hrefs = pep_table.xpath('.//a[@class="pep reference internal"]/@href')
+        pep_hrefs = pep_table.xpath(
+            './/a[@class="pep reference internal"]/@href'
+        )
         for link in pep_hrefs:
             yield response.follow(link, callback=self.parse_pep)
 
